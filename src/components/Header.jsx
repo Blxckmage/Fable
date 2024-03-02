@@ -1,8 +1,13 @@
 import { UserButton, SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import Link from "next/link";
 
-const Header = () => {
-  const links = [{ id: 0, name: "Blog", to: "/blogs" }];
+const Header = async () => {
+  // link to create blog
+  const links = [
+    { id: 0, name: "Blogs", to: "/blogs" },
+    { id: 1, name: "Create Blog", to: "/create" },
+    { id: 2, name: "Profile", to: "/profile" },
+  ];
 
   return (
     <nav className="m-auto mb-2 h-6 w-full max-w-4xl px-3 py-8 md:mb-12 md:px-20">
