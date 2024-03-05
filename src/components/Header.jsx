@@ -1,12 +1,12 @@
+import getAuth from "@/lib/get-auth";
 import { UserButton, SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import Link from "next/link";
 
 const Header = async () => {
-  // link to create blog
+  const auth = await getAuth();
   const links = [
-    { id: 0, name: "Blogs", to: "/blogs" },
-    { id: 1, name: "Create Blog", to: "/create" },
-    { id: 2, name: "Profile", to: "/profile" },
+    { id: 0, name: "Blogs", to: "/" },
+    ...(auth ? [{ id: 1, name: "New Blog", to: "/create" }] : []),
   ];
 
   return (
@@ -23,10 +23,10 @@ const Header = async () => {
           ))}
           <li className="ml-4 inline-block">
             <SignedIn>
-              <UserButton />
+              <UserButton afterSignOutUrl="/" />
             </SignedIn>
             <SignedOut>
-              <SignInButton />
+              <SignInButton afterSignInUrl="/" />
             </SignedOut>
           </li>
         </ul>
