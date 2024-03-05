@@ -1,20 +1,23 @@
 import BlogPost from "@/components/BlogPost";
+import { getPosts } from "@/lib/api";
+import getAuth from "@/lib/get-auth";
 
 export default async function Home() {
+  const posts = await getPosts();
   return (
-    <section className="min-h-screen bg-ctp-base">
-      <div className="m-auto mb-2 w-full max-w-4xl px-6 py-3 md:mb-12 md:px-32">
+    <div>
+      {posts.map((post) => (
         <BlogPost
-          title="Blog 1"
-          date="2024-03-02 17:26"
-          summary="Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat."
+          key={post.id}
+          id={post.id}
+          slug={post.slug}
+          title={post.title}
+          date={post.date}
+          summary={
+            post.body.length > 250 ? post.body.slice(0, 250) + "..." : post.body
+          }
         />
-        <BlogPost
-          title="Blog 2"
-          date="2024-03-02 17:26"
-          summary="Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat."
-        />
-      </div>
-    </section>
+      ))}
+    </div>
   );
 }
